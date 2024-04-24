@@ -1,0 +1,31 @@
+.card {
+  border: solid 1px black;
+  padding: 1rem;
+  border-radius: .5rem;
+  width: 12.5rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.badge {
+  border-radius: 100vmax;
+  padding: .5rem 1rem;
+  align-self: flex-end;
+}
+
+.hacker-badge {
+  background-color: #bd4242;
+  color: white;
+}
+
+.bbc-badge {
+  background-color: #3939a2;
+  color: white;
+}
+
+.ny-badge {
+  background-color: #2ac52a;
+  color: white;
+}

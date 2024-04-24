@@ -1,0 +1,9 @@
+<div class="card">
+  <span
+    *ngIf="news().source as source"
+    class="badge"
+    [ngClass]="getClassFromSource | apply : source"
+  >{{ source | titlecase }}</span
+  >
+  <h3>{{ news().title }}</h3>
+</div>

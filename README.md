@@ -1,27 +1,146 @@
-# Italiaonline
+# Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
+1. [Schema](#schema)
+2. [Sorgenti](#sorgenti)
+3. [Endpoint](#endpoint)
+4. [Docker](#docker)
+5. [Angular](#angular)
 
-## Development server
+Usando Spring Boot (versione 2.x), si chiede di creare un servizio HTTP Rest che esponga le news raccolte da 3 diverse
+sorgenti dati:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Hacker;
+- NyTimes;
+- Bbc.
 
-## Code scaffolding
+## Schema
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Si vuole avere un json d'uscita che rispetti il seguente schema:
 
-## Build
+```
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "publishDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+				"Hacker",
+				"NyTimes",
+				"Bbc"
+			]
+    },
+    "source": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "url",
+    "publishDate",
+    "type",
+    "source"
+  ]
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Esempio:
 
-## Running unit tests
+```
+{
+  "title": "For Car Thieves, Toronto Is a 'Candy Store,' and Drivers Are Fed Up",
+  "url": "https://www.nytimes.com/2024/02/24/world/canada/toronto-car-theft-epidemic.html",
+  "publishDate": "2024-02-24",
+  "type": "Article",
+  "source": "NyTimes"
+}
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Sorgenti
 
-## Running end-to-end tests
+Le sorgenti dati sono:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+**NyTimes**
 
-## Further help
+```
+https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key=P9eZP8Gn1gllxx3q5QDlsJwsmQ1yQgAN 
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+**Hacker**
+Indice news
+
+```
+https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty
+```
+
+Dettaglio
+
+```
+https://hacker-news.firebaseio.com/v0/item/[id_news].json?print=pretty
+```
+
+**BBC**
+
+```
+http://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=9acc642023684f07b46fae89185513ce
+```
+
+## Endpoint
+
+Si chiede di implementare i seguenti endpoint
+
+Elenco di tutte le news (10 per sorgente)
+
+```
+GET http://localhost:8080/news
+```
+
+Elenco delle news per la sorgente dati (max 30 elementi)
+
+```
+GET http://localhost:8080/news/{source}
+```
+
+Le sorgenti disponibili sono:
+
+    Hacker;
+    NyTimes;
+    Bbc.
+
+```
+POST http://localhost:8080/save
+```
+
+Persiste le news in MongoDb.
+
+```
+GET http://localhost:8080/list
+```
+
+Legge le news da MongoDb
+
+```
+GET http://localhost:8080/list/{word} (max 10 elementi)
+```
+
+Legge le news da MongoDb filtrate per parola nel titolo/testo.
+
+## Docker
+
+Inserirlo in un container Docker insieme a MongoDb e pubblicarlo su un repository condiviso
+
+## Angular
+
+Creare un'app di Front End in Angular per visualizzare i contenuti e filtrare i dati basandosi sul servizio appena
+sviluppato e pubblicarlo su un repository condiviso

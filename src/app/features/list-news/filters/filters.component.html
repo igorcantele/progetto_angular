@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+  <mat-radio-group aria-label="SELECT_SOURCE" formControlName="source">
+    @for (source of sources(); track source) {
+      <mat-radio-button [value]="source">{{ source }}</mat-radio-button>
+    }
+    <mat-radio-button [value]="undefined">ALL</mat-radio-button>
+  </mat-radio-group>
+
+  <button mat-button (click)="addPage()">LOAD_MORE</button>
+</form>

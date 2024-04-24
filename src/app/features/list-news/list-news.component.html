@@ -1,0 +1,21 @@
+<form class="container" [formGroup]="form">
+  <app-filters [currService]="serviceToUse()"></app-filters>
+  <mat-tab-group animationDuration="0ms" (selectedTabChange)="changeMode($event)">
+    <mat-tab [label]="'Articoli dai giornali'">
+      <ng-template matTabContent>
+        <app-cards-container [newsList]="newsList()" [service]="serviceToUse()"></app-cards-container>
+      </ng-template>
+    </mat-tab>
+    <mat-tab [label]="'Articoli da MongoDB'">
+      <ng-template matTabContent>
+        <app-cards-container [newsList]="newsList()" [service]="serviceToUse()"></app-cards-container>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Carica articoli">
+      <ng-template matTabContent>
+        <app-add-news></app-add-news>
+      </ng-template>
+    </mat-tab>
+    >
+  </mat-tab-group>
+</form>

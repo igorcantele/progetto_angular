@@ -1,0 +1,8 @@
+<div class="flex">
+  @for (news of newsList(); track news.id) {
+    <app-card [news]="news"></app-card>
+  }
+  @if (isLoading()) {
+    <mat-spinner></mat-spinner>
+  }
+</div>

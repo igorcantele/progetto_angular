@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="sendNews()">
+  <mat-form-field class="full-width">
+    <mat-label>Titolo</mat-label>
+    <input matInput placeholder="Titolo" formControlName="title">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Url</mat-label>
+    <input matInput placeholder="www.google.com" formControlName="url">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Data di pubblicazione</mat-label>
+    <input type="date" matInput placeholder="dd/mm/yyyy" formControlName="publishDate">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Fonte</mat-label>
+    <mat-select formControlName="source">
+      @for (source of sources(); track source) {
+        <mat-option [value]="source">{{ source }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Tipo</mat-label>
+    <input matInput placeholder="Articolo" formControlName="type">
+  </mat-form-field>
+
+  <button mat-button [disabled]="!form.valid">Invia</button>
+</form>

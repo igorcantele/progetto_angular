@@ -1,0 +1,15 @@
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+mat-tab-group {
+  width: calc(100% - 2rem);
+}
